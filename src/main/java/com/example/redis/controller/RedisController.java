@@ -144,4 +144,29 @@ public class RedisController {
         }));
         return null;
     }
+
+
+//    使用redis流水线测试性能
+    @RequestMapping("/pipeline")
+    public Map<String,Object> testPipeline(){
+        Long start =System.currentTimeMillis();
+        List list=redisTemplate.executePipelined(new SessionCallback<Object>() {
+            @Override
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                for (int i = 1; i <100000 ; i++) {
+                    operations.opsForValue().set("pipeline_"+i,"value_"+i);
+                    String value= (String) operations.opsForValue().get("pipeline_"+i);
+                    if (i == 100000){
+                        System.out.println("命令只是进入队列，所以值为空【"+value+"】");
+                    }
+                }
+                return null;
+            }
+        });
+        Long end=System.currentTimeMillis();
+        System.out.println("耗时："+(end-start)+"毫秒");
+        Map<String,Object> map=new HashMap<>();
+        map.put("success",true);
+        return  map;
+    }
 }

@@ -13,8 +13,9 @@ public class RedisMessageListener implements MessageListener {
     * @return: void 
     * @Author: 文兆杰
     * @Date: 2018/12/27 
-    */ 
+    */
     @Override
+
     public void onMessage(Message message, byte[] pattern) {
 //        消息体
         String body=new String(message.getBody());

@@ -130,7 +130,7 @@ public class RedisController {
                 operations.opsForValue().set("key2","value2");
 
                 operations.opsForValue().increment("key1",1);
-
+//sss
                 Object value2=operations.opsForValue().get("key2");
                 System.out.println("命令再队列,所以value为null["+value2+"]");
 

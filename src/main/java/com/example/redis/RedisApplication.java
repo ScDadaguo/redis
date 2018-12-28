@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.omg.CORBA.CODESET_INCOMPATIBLE;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,16 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
 @EnableCaching
+@MapperScan(
+        basePackages ="com.example.redis",
+        annotationClass = Repository.class
+)
 public class RedisApplication {
 
 
